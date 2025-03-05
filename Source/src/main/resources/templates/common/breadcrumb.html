@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <!-- BREADCRUMB -->
+  <div id="breadcrumb" class="section"
+       th:fragment="breadcrumb(firstLayerPageName, secondLayerPageName, currentPage)" th:classappend="${currentPage=='login'||currentPage=='register'||currentPage=='user'||currentPage=='orderDetail'}?'no-margin-bottom':''">
+    <div th:if="${currentPage!=null}" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="breadcrumb-header" th:if="${#messages.msgOrNull(currentPage)}!=null" th:text="#{${currentPage}}">Tên trang th Notnull</h3>
+          <h3 class="breadcrumb-header" th:if="${#messages.msgOrNull(currentPage)}==null" th:text="${currentPage}">Tên trang th Null</h3>
+          <ul class="breadcrumb-tree">
+            <li>
+              <a th:href="@{/index}" th:text="#{navigation.homePage}">Home</a>
+            </li>
+            <li th:if="${(firstLayerPageName != null && currentPage != 'softwares')}">
+              <a th:href="@{/{firstLayerPageName}(firstLayer=${firstLayerPageName})}"
+                 th:text="#{${firstLayerPageName}}">
+                First Layer
+              </a>
+            </li>
+            <li th:if="${secondLayerPageName != null}">
+              <a th:href="@{/{firstLayer}/{secondLayer}(firstLayer=${firstLayerPageName}, secondLayer=${secondLayerPageName})}"
+                 th:text="#{${secondLayerPageName}}">
+                Second Layer
+              </a>
+            </li>
+            <li class="active" th:if="${#messages.msgOrNull(currentPage)}!=null" th:text="#{${currentPage}}">Not null</li>
+            <li class="active" th:if="${#messages.msgOrNull(currentPage)}==null" th:text="${currentPage}">Null</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /BREADCRUMB -->
+</body>
+</html>

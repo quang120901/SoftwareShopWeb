@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Electro - HTML Ecommerce Temp late</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick.css}"/>
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick-theme.css}"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/nouislider.min.css}"/>
+
+		<!-- Font Awesome Icon -->
+		<link 				  rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header th:replace="~{common/header :: header}"/>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav th:replace="~{common/navigation :: navigation(null)}"/>
+		<!-- /NAVIGATION -->
+
+		<!-- BREADCRUMB -->
+		<div th:replace="~{common/breadcrumb :: breadcrumb(null, null, 'user')}"></div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section no-padding-top">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="">
+					<!-- Order Details -->
+					<div class="col-md-12 purchased-list">
+						<div class="section-title text-center">
+							<h3 class="title">List Order</h3>
+						</div>
+						<div class="col-md-12 noProductError" th:if="${orders.isEmpty()}"><p th:text="#{order.noProduct}">Error cant find products</p></div>
+						<table class="customTable" th:if="${!orders.isEmpty()}">
+							<thead>
+								<tr>
+									<th th:text="#{user.orderId}">Order Id</th>
+									<th th:text="#{user.orderInfo}">Info</th>
+									<th th:text="#{user.orderPriceAndStatus}">Price - Status</th>
+									<th th:text="#{user.orderDate}">Date</th>
+									<th th:text="#{user.orderDetail}">Detail Order</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="o : ${orders}">
+									<td th:text="${o.id}"></td>
+									<td class="left block">
+										<p th:text="#{user.orderInfo-recipientName} + ${o.name}"/>
+										<p th:text="#{user.orderInfo-recipientAddress} + ${o.address}"/>
+									</td>
+									<td>
+										<p>
+											<span th:text="${o.getFormattedCost() + ' VNĐ'} + ' - ' + (${o.status == 'not paid'} ? #{user.orderStatus-notPaid} : #{user.orderStatus-paid})"></span>
+										</p>
+									</td>
+									<td th:text="${#dates.format(o.date, 'dd-MM-yyyy')}">2</td>
+									<td><a class="btn detailBtn" th:href="@{/user-order-detail/{orderId}(orderId=${o.id})}" th:text="#{user.orderDetailBtn}">Detail</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /Order Details -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+
+		<!-- FOOTER -->
+		<footer th:replace="~{common/footer :: footer}"/>
+		<!-- /FOOTER -->
+
+		<!-- jQuery Plugins -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

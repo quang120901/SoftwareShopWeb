@@ -1,0 +1,86 @@
+    .main-content {
+        font-family: Inter;
+        font-size: 13px;
+        color: rgb(22, 22, 22);
+
+        height: 100%;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+
+        .promo-img {
+            height: 36rem;
+        }
+
+        .form > * {
+            display: block;
+        }
+
+        .form {
+            width: max-content;
+            display: flex;
+            flex-direction: column;
+            row-gap: 1.5rem;
+            justify-content: center;
+            margin-right: 8rem;
+            margin-left: 8rem;
+
+            .title {
+                font-size: 4.5rem;
+                font-weight: 600;
+            }
+
+            .input-field, .submit-button {
+                padding: 1.25rem 1.5rem;
+                border-radius: 8px;
+                border: none;
+                width: 35rem;
+                border: 1px solid rgba(22, 22, 22, 0.3);
+            }
+
+            .input-field::placeholder {
+                font-size: 1.2rem;
+                font-weight: 500;
+                color: rgba(22, 22, 22, 0.5);
+            }
+
+            .link-forgot-password {
+                align-self: flex-end;
+                margin-right: 0.5rem;
+            }
+
+            .submit-button {
+                background-color: rgba(56, 105, 235, 1);
+                color: white;
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+
+            .link {
+                align-self: center;
+            }
+        }
+    }
+    .login {
+        .form {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+        .promo-img {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+    }
+    .register {
+        .form {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+        .promo-img {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+    }
+    .login, .register {
+        margin-bottom: 30px;
+    }

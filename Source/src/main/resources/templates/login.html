@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Electro - HTML Ecommerce Template</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick.css}"/>
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick-theme.css}"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/nouislider.min.css}"/>
+
+		<!-- Font Awesome Icon -->
+		<link 				  rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+
+		<!-- Custom Login Page -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/loginAndRegis.css}"/>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+		<body>
+		<!-- HEADER -->
+		<header th:replace="~{common/header :: header}"/>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav th:replace="~{common/navigation :: navigation(null)}"/>
+		<!-- /NAVIGATION -->
+
+		<!-- BREADCRUMB -->
+		<div  th:replace="~{common/breadcrumb :: breadcrumb(null, null, 'login')}"></div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="main-content login">
+						<div th:if="${error}" class="error-message" style="color: red;">
+							<p th:text="${error}"></p>
+						</div>
+						<form class="form" th:action="@{/login}" method="post">
+							<div class="title">Đăng nhập</div>
+							<div th:if="${error}" class="alert alert-danger">
+								<p th:text="${error}"></p>
+							</div>
+							<div th:if="${message != null}" class="success-message">
+								<p th:text="${message}"></p>
+							</div>
+							<input
+									type="email"
+									class="input-field email"
+									name="email"
+									placeholder="Email"
+									required
+							/>
+							<input
+									type="password"
+									class="input-field password"
+									name="password"
+									placeholder="Mật khẩu"
+									required
+							/>
+							<a class="link-forgot-password" href="#">Quên mật khẩu?</a>
+							<button class="submit-button">Đăng nhập</button>
+							<div class="register">
+								<span class="register-text">Chưa có tài khoản? </span>
+								<a class="link-regis" th:href="@{/register}">Đăng ký</a>
+							</div>
+						</form>
+						<img
+								class="promo-img"
+								src="./img/login-img.png"
+								alt="Promo Image"
+						/>
+					</div>
+					<!-- /shop -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- FOOTER -->
+		<footer th:replace="~{common/footer :: footer}"/>
+		<!-- /FOOTER -->
+
+		<!-- jQuery Plugins -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

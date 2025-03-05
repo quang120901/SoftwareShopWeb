@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Electro - HTML Ecommerce Template</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick.css}"/>
+		<link type="text/css" rel="stylesheet" th:href="@{/css/slick-theme.css}"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/nouislider.min.css}"/>
+
+		<!-- Font Awesome Icon -->
+		<link 				  rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+
+		<!-- Custom product page for admin -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/admin-style.css}"/>
+
+		<!-- Custom product page for admin product list -->
+		<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}"/>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    </head>
+	<body>
+	<!-- HEADER -->
+		<header th:replace="~{common/header :: header}"/>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav th:replace="~{common/navigation :: navigation('index')}"/>
+		<!-- /NAVIGATION -->
+
+		<!-- SECTION -->
+		<div class="section admin">
+			<!-- container -->
+			<div class="container">
+				<!-- Table -->
+				<div class="col-md-12 purchased-list">
+					<h3 id="title">QUẢN LÝ TÀI KHOẢN</h3>
+					<div class="wrapper--horizonal reversed">
+					</div>
+					<table class="customTable" id="admin_list">
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>TÊN NGƯỜI DÙNG</th>
+							<th>EMAIL</th>
+							<th>SĐT</th>
+							<th>VAI TRÒ</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="u : ${users}">
+							<td class="uId" th:text="${u.id}"></td>
+							<td class="uName left">
+								<p class="no-margin-bottom" th:text="${u.name}">User Full Name</p>
+							</td>
+							<td class="uEmail" th:text="${u.email}"></td>
+							<td class="uNumber" th:text="${u.phone_number}"></td>
+							<td>
+								<form th:action="@{/admin/changeRole}" method="post">
+									<input type="hidden" name="userId" th:value="${u.id}" />
+									<select class="btn selectBtn" name="role">
+										<option value="ROLE_USER" th:selected="${u.role == 'ROLE_USER'}">User</option>
+										<option value="ROLE_ADMIN" th:selected="${u.role == 'ROLE_ADMIN'}">Admin</option>
+									</select>
+									<button class="btn updateBtn" type="submit">Change</button>
+								</form>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- FOOTER -->
+		<footer th:replace="~{common/footer :: footer}"/>
+		<!-- /FOOTER -->
+
+		<!-- jQuery Plugins -->
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/slick.min.js}"></script>
+		<script th:src="@{/js/nouislider.min.js}"></script>
+		<script th:src="@{/js/jquery.zoom.min.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+
+	</body>
+</html>

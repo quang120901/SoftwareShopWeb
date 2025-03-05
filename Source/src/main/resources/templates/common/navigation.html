@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <nav id="navigation" th:fragment="navigation(currentPage)">
+    <!-- container -->
+    <div class="container">
+      <!-- responsive-nav -->
+      <div id="responsive-nav">
+        <!-- NAV -->
+        <ul class="main-nav nav navbar-nav">
+          <li th:class="(${currentPage=='index'? 'active' : ''})"><a th:href="@{/index}" th:text="#{navigation.homePage}">#</a></li>
+          <li th:class="(${currentPage=='softwares'? 'active' : ''})"><a th:href="@{/softwares}" th:text="#{category.softwares}">Tất cả sản phẩm</a></li>
+          <li th:class="(${currentPage=='office'? 'active' : ''})"><a th:href="@{/softwares/office}" th:text="#{category.office}">Văn phòng</a></li>
+          <li th:class="(${currentPage=='graphic'? 'active' : ''})"><a th:href="@{/softwares/graphic}" th:text="#{category.graphic}">Đồ họa</a></li>
+          <li th:class="(${currentPage=='sound'? 'active' : ''})"><a th:href="@{/softwares/sound}" th:text="#{category.sound}">Âm thanh</a></li>
+          <li th:class="(${currentPage=='other'? 'active' : ''})"><a th:href="@{/softwares/other}" th:text="#{category.other}">Phần mềm khác</a></li>
+        </ul>
+        <!-- /NAV -->
+      </div>
+      <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+  </nav>
+</body>
+</html>

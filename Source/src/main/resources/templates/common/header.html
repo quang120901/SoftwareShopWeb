@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.com" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <header th:fragment="header">
+        <!-- TOP HEADER -->
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li th:if="${#locale.language == 'en'}"><a href="?lang=vi"><i class="fa fa-globe"></i>  Chuyển sang Tiếng Việt</a></li>
+                    <li th:if="${#locale.language == 'vi'}"><a href="?lang=en"><i class="fa fa-globe"></i>  Go to English</a></li>
+                </ul>
+                <ul class="header-links pull-right">
+                    <!-- Kiểm tra người dùng đã đăng nhập chưa -->
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/user-order}"><i class="fa fa-user-o"></i><span th:text="#{header.user}"> Danh sách</span></a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i><span th:text="#{header.logout}"> Đăng xuất</span></a>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}"><i class="fa fa-dollar"></i> <span th:text="#{header.login}">Đăng nhập</span></a>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <a th:href="@{/register}"><i class="fa fa-user-o"></i> <span th:text="#{header.register}">Đăng ký</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /TOP HEADER -->
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a th:href="@{/index}" class="logo">
+                                <img th:src="@{/img/logo.png}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-7">
+                        <div class="header-search">
+                            <form th:action="@{/software/search}" method="get">
+                                <select class="input-select" name="category">
+                                    <option value="" th:text="#{softwares}">Tất cả</option>
+                                    <option value="office" th:text="#{office}">Văn phòng</option>
+                                    <option value="graphic" th:text="#{graphic}">Đồ họa</option>
+                                    <option value="sound" th:text="#{sound}">Âm thanh</option>
+                                    <option value="other" th:text="#{other}">PM khác</option>
+                                </select>
+                                <input class="input" name="name" th:placeholder="#{header.searchPlaceholder}" placeholder="Nhập tên phần mềm">
+                                <button class="search-btn" th:text="#{header.searchButton}">Tìm kiếm</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    <div class="col-md-2 clearfix">
+                        <div class="header-ctn">
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span th:text="#{header.cart}">Giỏ Hàng</span>
+                                    <div class="qty" th:text="${cart != null ? totalQuantity : 0}">0</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div th:each="item : ${cart}" class="product-widget">
+                                            <div class="product-img">
+                                                <img th:src="@{'/img_software/' + ${item.software.image}}" th:attr="style='width: 50px; height: 50px; display: block; margin: 0 auto;'" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">[[${item.software.name}]]</a></h3>
+                                                <h4 class="product-price">
+                                                    <span class="qty" th:text="${item.software.quantity}">1x</span>
+                                                    <span th:text="${item.software.price==0}?#{price.free}:${item.software.getFormattedPrice() + ' VND'}">$0.00</span>
+                                                </h4>
+                                            </div>
+
+                                            <form th:action="@{/softwares/removeFromCart}" method="post">
+                                                <input type="hidden" name="id" th:value="${item.software.id}" />
+                                                <button class="delete" type="submit"><i class="fa fa-close"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="cart-summary">
+                                        <small th:text="${cart != null ? #lists.size(cart) + ' Item(s) selected' : '0 Item(s) selected'}">0 Item(s) selected</small>
+                                        <h5 th:text="#{header.subTotal} +': ' + ${subtotal != null ? subtotal : '0'}+ ' VNĐ'">SUBTOTAL: $0.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a th:href="@{/checkout}" th:text="#{header.viewCart}">viewCart <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+</body>
+</html>
